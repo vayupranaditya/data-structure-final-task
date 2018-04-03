@@ -9,6 +9,12 @@
 
 using namespace std;
 
+/*
+ *Customer: single linear linked list: first, last
+ *
+ *Product: single linear linked list: first, last
+*/
+
 typedef struct CustomerElement* CustomerPointer;
 typedef struct ProductElement* ProductPoiter;
 
