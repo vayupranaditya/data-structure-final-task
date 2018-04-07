@@ -4,6 +4,7 @@
 #define RATING_H_INCLUDED
 
 #include <iostream>
+#include "app.h"
 
 #define CUSTOMER(Element) Element->customer
 #define PRODUCT(Element) ELement->product
@@ -32,7 +33,8 @@ void CreateRateList(RateList &list);
 void InsertRate(RatePointer &rate, RateList &list);   //insert first
 RatePointer DeleteFirstRate(RateList &list);
 RatePointer DeleteLastRate(RateList &list);
-RatePointer DeleteAfterRate(RatePointer &precedent RateList &list);
+RatePointer DeleteAfterRate(RatePointer &precedent, RateList &list);
+void DeletePointer(RatePointer &rate, RateList &list);    //automatically call delete first/after/last
 void ViewAllRate(RateList list);
 void ViewRateByCustomer(CustomerPointer customer, RateList list);
 void ViewRateByProduct(ProductPointer product, RateList list);

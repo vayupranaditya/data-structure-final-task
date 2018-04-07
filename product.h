@@ -4,6 +4,7 @@
 #define PRODUCT_H_INCLUDED
 
 #include <iostream>
+#include "app.h"
 
 using namespace std;
 
@@ -20,13 +21,14 @@ struct ProductList{
 	ProductPointer first;
 };
 
-ProductPointer CreateNewProduct(sting product_name);
+ProductPointer CreateNewProduct(string product_name);
 void CreateProductList(ProductList &list);
 ProductPointer FindProduct(string product_name, ProductList list);
 void InsertProduct(ProductPointer &product, ProductList &list);   //insert last
 ProductPointer DeleteFirstProduct(ProductList &list);
 ProductPointer DeleteLastProduct(ProductList &list);
-ProductPointer DeleteAfterProduct(ProductPointer &precedent ProductList &list);
+ProductPointer DeleteAfterProduct(ProductPointer &precedent, ProductList &list);
+void DeleteProduct(ProductPointer &product, ProductList &list);   //automatically call delete first/after/last
 void UpdateProduct(ProductPointer &product, string product_name);
 void ViewProduct(ProductList list);
 
