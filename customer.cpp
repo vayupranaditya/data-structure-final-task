@@ -19,13 +19,15 @@ void CreateCustomerList(CustomerList &list){
 
 CustomerPointer FindCustomerId(string customer_id, CustomerList list){
   CustomerPointer p=FIRST(list);
-  while((p!=NULL) || (INFO(p).customer_id!=customer_id)){
-  p=NEXT(p);
-  }
-  if(INFO(p).customer_id==customer_id){
-    return p;
-  }else{
-    return NULL;
+  if(p!=NULL){
+    while((NEXT(p)!=NULL) && (INFO(p).customer_id!=customer_id)){
+      p=NEXT(p);
+    }
+    if(INFO(p).customer_id==customer_id){
+      return p;
+    }else{
+      return NULL;
+    }
   }
 }
 
@@ -53,15 +55,13 @@ void InsertAfterCustomer(CustomerPointer &customer, CustomerPointer &precedent, 
   }
 }
 
-void InsertCustomer(string customer_id, string customer_name, CustomerList &list){
-  if(FindCustomerId(customer_id,list)!=NULL){
-    CustomerPointer customer=CreateNewCustomer(customer_id,customer_name);
-    //continue this procedure
-    if(FIRST(list)==NULL){
+void InsertCustomer(CustomerPointer &customer, CustomerList &list){
+  if(FindCustomerId(INFO(customer).customer_id,list)==NULL){
+    if((FIRST(list)==NULL) || (INFO(FIRST(list)).customer_id.compare(INFO(customer).customer_id)>0)){
       InsertFirstCustomer(customer,list);
     }else{
       CustomerPointer p=FIRST(list);
-      while(INFO(NEXT(p)).customer_id.compare(INFO(customer).customer_id)<0){
+      while((NEXT(p)!=NULL) && (INFO(NEXT(p)).customer_id.compare(INFO(customer).customer_id)<0)){
         p=NEXT(p);
       }
       if(NEXT(p)==NULL){
@@ -125,16 +125,26 @@ void DeleteCustomer(CustomerPointer &customer, CustomerList &list){
 }
 
 void UpdateCustomer(CustomerPointer &customer, string customer_id, string customer_name, CustomerList &list){
-  //finish this procedure
+  if(customer!=NULL){
+    if((customer_name!="") && (INFO(customer).customer_name!=customer_name)){
+      INFO(customer).customer_name=customer_name;
+    }
+    if((customer_id!="") && (INFO(customer).customer_id!=customer_id)){
+      DeleteCustomer(customer,list);
+      INFO(customer).customer_id=customer_id;
+      InsertCustomer(customer,list);
+    }
+  }
 }
 
 void ViewCustomer(CustomerList list){
   if(FIRST(list)!=NULL){
     CustomerPointer p=FIRST(list);
     while(p!=NULL){
-      cout<<INFO(p).customer_id<<endl;
-      cout<<INFO(p).customer_name<<endl;
+      cout<<INFO(p).customer_id<<": "<<INFO(p).customer_name<<endl;
       p=NEXT(p);
     }
+  }else{
+    cout<<"!empty"<<endl;
   }
 }

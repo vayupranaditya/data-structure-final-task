@@ -4,8 +4,8 @@
  *this project uses Google C++ Style Guide: https://google.github.io/styleguide/cppguide.html
  */
 
-#ifndef MAIN_H_INCLUDED
-#define MAIN_H_INCLUDED
+#ifndef APP_H_INCLUDED
+#define APP_H_INCLUDED
 
 #include <iostream>
 
@@ -20,4 +20,4 @@ typedef struct ProductElement* ProductPointer;
 
 using namespace std;
 
-#endif //MAIN_H_INCLUDED
+#endif //APP_H_INCLUDED
