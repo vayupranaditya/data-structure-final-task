@@ -7,10 +7,10 @@
 using namespace std;
 
 CustomerPointer CreateNewCustomer(string customer_id, string customer_name){
-  CustomerElement customer;
+  CustomerPointer customer=new CustomerElement;
   INFO(customer).customer_id=customer_id;
   INFO(customer).customer_name=customer_name;
-  return &customer;
+  return customer;
 }
 
 void CreateCustomerList(CustomerList &list){
@@ -115,7 +115,7 @@ void DeleteCustomer(CustomerPointer &customer, CustomerList &list){
     }else if(NEXT(customer)==NULL){
       customer=DeleteLastCustomer(list);
     }else{
-      CustomerPointer p=FIRST(LIST);
+      CustomerPointer p=FIRST(list);
       while(NEXT(p)!=customer){
         p=NEXT(p);
       }

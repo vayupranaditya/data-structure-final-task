@@ -9,8 +9,8 @@
 
 #include <iostream>
 
-#define FIRST(Element) Element->first
-#define LAST(Element) Element->last
+#define FIRST(Element) Element.first
+#define LAST(Element) Element.last
 #define NEXT(Element) Element->next
 #define PREVIOUS(Element) Element->previous
 #define INFO(Element) Element->info
