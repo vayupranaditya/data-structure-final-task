@@ -14,7 +14,8 @@ int main(){
   //code here
 
   //testing
-  TestCustomerList();
+  //TestCustomerList();
+  TestProductList();
 
   return 0;
 }

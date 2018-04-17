@@ -13,28 +13,34 @@ void CreateProductList(ProductList &list){
 }
 
 ProductPointer FindProduct(string product_name, ProductList list){
-    ProductPointer p;
-    p = FIRST(list);
-    while((INFO(p).product_name != product_name) && (NEXT(p) != NULL)){
-        p = NEXT(p);
-    }
-    if(INFO(p).product_name == product_name){
-        return p;
+    if(FIRST(list)!=NULL){
+        ProductPointer p;
+        p = FIRST(list);
+        while((INFO(p).product_name != product_name) && (NEXT(p) != NULL)){
+            p = NEXT(p);
+        }
+        if(INFO(p).product_name == product_name){
+            return p;
+        }else{
+            return NULL;
+        }
     }else{
         return NULL;
     }
 }
 
 void InsertProduct(ProductPointer &product, ProductList &list){
-    ProductPointer p;
-    if(FIRST(list) != NULL){
-        p = FIRST(list);
-        while(NEXT(p) != NULL){
-            p = NEXT(p);
+    if(FindProduct(INFO(product).product_name,list)==NULL){
+        ProductPointer p;
+        if(FIRST(list) != NULL){
+            p = FIRST(list);
+            while(NEXT(p) != NULL){
+                p = NEXT(p);
+            }
+            NEXT(p) = product;
+        }else{
+            FIRST(list) = product;
         }
-        NEXT(p) = product;
-    }else{
-        FIRST(list) = product;
     }
 }
 
@@ -83,7 +89,7 @@ void DeleteProduct(ProductPointer &product, ProductList &list){
         }else if(NEXT(product) == NULL){
             product = DeleteLastProduct(list);
         }else{
-            ProductPointer p;
+            ProductPointer p=FIRST(list);
             while(NEXT(p)!=product){
                 p=NEXT(p);
             }
@@ -93,7 +99,11 @@ void DeleteProduct(ProductPointer &product, ProductList &list){
 }
 
 void UpdateProduct(ProductPointer &product, string product_name){
-    //change product_name only.
+    if(product!=NULL){
+        if((product_name!="") && (INFO(product).product_name!=product_name)){
+            INFO(product).product_name=product_name;
+        }
+    }
 }
 
 void ViewProduct(ProductList list){
@@ -102,7 +112,8 @@ void ViewProduct(ProductList list){
     }else{
         ProductPointer p = FIRST(list);
         while (p != NULL){
-            cout<< INFO(p).product_name<<", ";
+            cout<< INFO(p).product_name<<endl;
+            p=NEXT(p);
         }
     }
 }

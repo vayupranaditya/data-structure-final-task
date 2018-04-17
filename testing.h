@@ -15,5 +15,6 @@
 using namespace std;
 
 int TestCustomerList();
+int TestProductList();
 
 #endif //TESTING_H_INCLUDED

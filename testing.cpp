@@ -1,6 +1,7 @@
 #include <iostream>
 #include "app.h"
 #include "customer.h"
+#include "product.h"
 
 using namespace std;
 
@@ -59,4 +60,73 @@ int TestCustomerList(){
   ViewCustomer(customer_list);
 
   return 0;
+}
+
+int TestProductList(){
+  ProductList product_list;
+  CreateProductList(product_list);
+
+  string product_name="prod_name001";
+  ProductPointer product=CreateNewProduct(product_name);
+  InsertProduct(product,product_list);
+
+  product_name="prod_name003";
+  product=CreateNewProduct(product_name);
+  InsertProduct(product,product_list);
+
+  product_name="prod_name002";
+  product=CreateNewProduct(product_name);
+  InsertProduct(product,product_list);
+
+  product_name="prod_name003";
+  product=CreateNewProduct(product_name);
+  InsertProduct(product,product_list);
+
+  product_name="prod_name004";
+  product=CreateNewProduct(product_name);
+  InsertProduct(product,product_list);
+
+  product_name="prod_name005";
+  product=CreateNewProduct(product_name);
+  InsertProduct(product,product_list);
+
+  ViewProduct(product_list);
+
+  cout<<"delete 005"<<endl;
+  DeleteProduct(product,product_list);
+
+  ViewProduct(product_list);
+
+  cout<<"delete 001"<<endl;
+  product=FindProduct("prod_name001",product_list);
+  DeleteProduct(product,product_list);
+
+  ViewProduct(product_list);
+
+  cout<<"delete 002"<<endl;
+  product=FindProduct("prod_name002",product_list);
+  DeleteProduct(product,product_list);
+
+  ViewProduct(product_list);
+
+  cout<<"update 003 > 001"<<endl;
+  product=FindProduct("prod_name003",product_list);
+  UpdateProduct(product,"prod_name001");
+
+  ViewProduct(product_list);
+
+  cout<<"update 004 > 002"<<endl;
+  product=FindProduct("prod_name004",product_list);
+  UpdateProduct(product,"prod_name002");
+  
+  ViewProduct(product_list);
+
+  cout<<"update !NULL > 003"<<endl;
+  product=FindProduct("auuu",product_list);
+  UpdateProduct(product,"prod_name003");
+
+  ViewProduct(product_list);
+
+  return 0;
+
 }
