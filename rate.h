@@ -19,7 +19,7 @@ struct RateInfotype{
 
 struct RateElement{
   RateInfotype info;
-  RatePointer next;
+  RatePointer next,prev;
   CustomerPointer customer;
   ProductPointer product;
 };
@@ -35,6 +35,9 @@ RatePointer DeleteFirstRate(RateList &list);
 RatePointer DeleteLastRate(RateList &list);
 RatePointer DeleteAfterRate(RatePointer &precedent, RateList &list);
 void DeletePointer(RatePointer &rate, RateList &list);    //automatically call delete first/after/last
+RatePointer FindRateByCustomer(CustomerPointer customer, RateList list);
+RatePointer FindRateByProduct(ProductPointer product, RateList list);
+//RatePointer FindRate()
 void ViewAllRate(RateList list);
 void ViewRateByCustomer(CustomerPointer customer, RateList list);
 void ViewRateByProduct(ProductPointer product, RateList list);

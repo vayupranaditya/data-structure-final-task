@@ -1,4 +1,3 @@
-#include <iostream>
 #include <string>
 
 #include "app.h"
@@ -95,7 +94,7 @@ CustomerPointer DeleteLastCustomer(CustomerList &list){
       NEXT(p)=NULL;
       return q;
     }else{
-      DeleteFirstCustomer(list);
+      return DeleteFirstCustomer(list);
     }
   }
 }
@@ -105,6 +104,9 @@ CustomerPointer DeleteAfterCustomer(CustomerPointer &precedent, CustomerList &li
     CustomerPointer p=NEXT(precedent);
     NEXT(precedent)=NEXT(p);
     NEXT(p)=NULL;
+    return p;
+  }else{
+    return NULL;
   }
 }
 

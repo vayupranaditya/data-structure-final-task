@@ -64,10 +64,18 @@ ProductPointer DeleteLastProduct(ProductList &list){
     ProductPointer p;
     if(FIRST(list) != NULL){
         p = FIRST(list);
-        while (NEXT(NEXT(p)) != NULL){
-            p = NEXT(p);
+        if(NEXT(p)!=NULL){
+            while (NEXT(NEXT(p)) != NULL){
+                p = NEXT(p);
+            }
+            ProductPointer q=NEXT(p);
+            NEXT(p) = NULL;
+            return q;
+        }else{
+            return DeleteFirstProduct(list);
         }
-        NEXT(p) = NULL;
+    }else{
+        return NULL;
     }
 }
 

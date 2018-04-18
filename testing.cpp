@@ -2,6 +2,7 @@
 #include "app.h"
 #include "customer.h"
 #include "product.h"
+#include "rate.h"
 
 using namespace std;
 
