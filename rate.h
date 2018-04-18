@@ -7,7 +7,7 @@
 #include "app.h"
 
 #define CUSTOMER(Element) Element->customer
-#define PRODUCT(Element) ELement->product
+#define PRODUCT(Element) Element->product
 
 typedef struct RateElement* RatePointer;
 
@@ -19,7 +19,7 @@ struct RateInfotype{
 
 struct RateElement{
   RateInfotype info;
-  RatePointer next,prev;
+  RatePointer next,previous;
   CustomerPointer customer;
   ProductPointer product;
 };

@@ -7,7 +7,7 @@ using namespace std;
 
 RatePointer CreateNewRate(int point){
   RatePointer rate=new RateElement;
-  INFO(rate)=point;
+  INFO(rate).point=point;
   NEXT(rate)=NULL;
   CUSTOMER(rate)=NULL;
   PRODUCT(rate)=NULL;
@@ -25,12 +25,12 @@ void InsertRate(RatePointer &rate, RateList &list){
       FIRST(list)=rate;
       LAST(list)=rate;
       NEXT(LAST(list))=FIRST(list);
-      PREV(FIRST(list))=LAST(list);
+      PREVIOUS(FIRST(list))=LAST(list);
     }else{
       NEXT(LAST(list))=rate;
-      PREV(rate)=LAST(list);
+      PREVIOUS(rate)=LAST(list);
       NEXT(rate)=FIRST(list);
-      PREV(FIRST(list))=rate;
+      PREVIOUS(FIRST(list))=rate;
       LAST(list)=rate;
     }
   }
@@ -54,7 +54,7 @@ RatePointer DeleteFirstRate(RateList &list){
 /*
  *INGET BOY
  *INI PUNYA FIRST AMA LAST
- 
+
 
 RatePointer DeleteLastRate(RateList &list){
   if(FIRST(list)!=NULL){
@@ -74,4 +74,22 @@ void DeletePointer(RatePointer &rate, RateList &list);    //automatically call d
 void ViewRateByCustomer(CustomerPointer customer, RateList list);
 void ViewRateByProduct(ProductPointer product, RateList list);
 */
-void ViewAllRate(RateList list);
+void ViewAllRate(RateList list){
+  RatePointer p = FIRST(list);
+  if (FIRST(list) == NULL){
+    cout<<"NO RATING YET";
+  }else if (NEXT(p) == FIRST(list)){
+    cout<<INFO(PRODUCT(p)).product_name;
+    cout<<INFO(p).point<<", ";
+    cout<<INFO(CUSTOMER(p)).customer_id;
+    cout<<INFO(CUSTOMER(p)).customer_name;
+  }else{
+    while(NEXT(p) != FIRST((list))){
+      cout<<INFO(PRODUCT(p)).product_name;
+      cout<<INFO(p).point<<", ";
+      cout<<INFO(CUSTOMER(p)).customer_id;
+      cout<<INFO(CUSTOMER(p)).customer_name;
+      p = NEXT(p);
+    }
+  }
+}
