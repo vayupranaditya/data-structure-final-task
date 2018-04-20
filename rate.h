@@ -28,7 +28,7 @@ struct RateList{
   RatePointer first,last;
 };
 
-RatePointer CreateNewRate(int point);
+RatePointer CreateNewRate(int point, CustomerPointer customer, ProductPointer product);
 void CreateRateList(RateList &list);
 void InsertRate(RatePointer &rate, RateList &list);   //insert first
 RatePointer DeleteFirstRate(RateList &list);

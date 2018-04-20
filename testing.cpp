@@ -35,6 +35,11 @@ int TestCustomerList(){
   customer=CreateNewCustomer(customer_id,customer_name);
   InsertCustomer(customer,customer_list);
 
+  cout<<"INSERT INTO customer_list VALUES ('cust_id001','cust_name001');"<<endl;
+  cout<<"INSERT INTO customer_list VALUES ('cust_id002','cust_name002');"<<endl;
+  cout<<"INSERT INTO customer_list VALUES ('cust_id003','cust_name003');"<<endl;
+  cout<<"INSERT INTO customer_list VALUES ('cust_id004','cust_name004');"<<endl;
+  cout<<"INSERT INTO customer_list VALUES ('cust_id005','cust_name005');"<<endl;
   ViewCustomer(customer_list);
 
   customer=FindCustomerId("cust_id001",customer_list);
@@ -44,6 +49,9 @@ int TestCustomerList(){
   customer=FindCustomerId("cust_id003",customer_list);
   DeleteCustomer(customer,customer_list);
 
+  cout<<"DELETE FROM customer_list WHERE customer_id='cust_id001';"<<endl;
+  cout<<"DELETE FROM customer_list WHERE customer_id='cust_id005';"<<endl;
+  cout<<"DELETE FROM customer_list WHERE customer_id='cust_id003';"<<endl;
   ViewCustomer(customer_list);
 
   customer_name="cust_name001";
@@ -51,6 +59,7 @@ int TestCustomerList(){
   customer=FindCustomerId("cust_id004",customer_list);
   UpdateCustomer(customer,customer_id,customer_name,customer_list);
 
+  cout<<"UPDATE customer_list SET customer_name='cust_name001' WHERE customer_id='cust_id004';"<<endl;
   ViewCustomer(customer_list);
 
   customer_name="cust_name001";
@@ -58,6 +67,7 @@ int TestCustomerList(){
   customer=FindCustomerId("cust_id004",customer_list);
   UpdateCustomer(customer,customer_id,customer_name,customer_list);
   
+  cout<<"UPDATE customer_list SET customer_id='cust_name001' WHERE customer_id='cust_id004';"<<endl;
   ViewCustomer(customer_list);
 
   return 0;
@@ -129,5 +139,47 @@ int TestProductList(){
   ViewProduct(product_list);
 
   return 0;
+}
 
+int TestRateList(){
+  RateList rate_list;
+  CreateRateList(rate_list);
+  CustomerList customer_list;
+  CreateCustomerList(customer_list);
+  ProductList product_list;
+  CreateProductList(product_list);
+
+  string customer_id="cust_id001";
+  string customer_name="cust_name001";
+  CustomerPointer customer=CreateNewCustomer(customer_id,customer_name);
+  InsertCustomer(customer,customer_list);
+
+  customer_id="cust_id002";
+  customer_name="cust_name002";
+  customer=CreateNewCustomer(customer_id,customer_name);
+  InsertCustomer(customer,customer_list);
+
+  string product_name="prod_name001";
+  ProductPointer product=CreateNewProduct(product_name);
+  InsertProduct(product,product_list);
+
+  product_name="prod_name002";
+  product=CreateNewProduct(product_name);
+  InsertProduct(product,product_list);
+
+  int point=5;
+  customer=FindCustomerId("cust_id001",customer_list);
+  product=FindProduct("prod_name002",product_list);
+  RatePointer rate=CreateNewRate(point,customer,product);
+  InsertRate(rate,rate_list);
+
+  point=2;
+  customer=FindCustomerId("cust_id002",customer_list);
+  product=FindProduct("prod_name001",product_list);
+  rate=CreateNewRate(point,customer,product);
+  InsertRate(rate,rate_list);
+
+  ViewAllRate(rate_list);
+
+  return 0;
 }
