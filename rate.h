@@ -39,6 +39,8 @@ RatePointer FindRate(CustomerPointer customer, ProductPointer product, RateList 
 void ViewAllRate(RateList list);
 void ViewRateByCustomer(CustomerPointer customer, RateList list);
 void ViewRateByProduct(ProductPointer product, RateList list);
+void ViewProductRate(ProductList product_list, RateList rate_list);
+void ViewTopTenProduct(ProductList product_list, RateList rate_list);
 
 //testing
 void CountRate(RateList list);

@@ -14,12 +14,16 @@ int main(){
   //code here
 
   //testing
-  /*cout<<"\n\nTest Customer \n";
-  TestCustomerList();
-  cout<<"\n\nTest Product \n";
-  TestProductList();*/
-  cout<<"\n\nTest Rate\n";
-  TestRateList();
+  /*
+   cout<<"\n\nTest Customer \n";
+   TestCustomerList();
+   cout<<"\n\nTest Product \n";
+   TestProductList();
+   cout<<"\n\nTest Rate\n";
+   TestRateList();
+   */
+
+  HomePage();
 
   return 0;
 }

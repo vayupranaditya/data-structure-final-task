@@ -23,10 +23,9 @@ typedef struct ProductElement* ProductPointer;
 
 
 vector <string> GetCommandInput();
-void CreateCache(CustomerPointer &customer);
-void HomePage();
-void SignUp();
-void Login();
+void HomePage(CustomerList &customer_list, ProductList &product_list, RateList &rate_list);
+void SignUp(CustomerList &custome_list);
+CustomerPointer Login(CustomerPointer customer=NULL, CustomerList customer_list);
 void Menu();
 
 
