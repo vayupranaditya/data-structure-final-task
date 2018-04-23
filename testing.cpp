@@ -167,19 +167,84 @@ int TestRateList(){
   product=CreateNewProduct(product_name);
   InsertProduct(product,product_list);
 
+  cout<<"> insert rate\n";
+
   int point=5;
   customer=FindCustomerId("cust_id001",customer_list);
   product=FindProduct("prod_name002",product_list);
   RatePointer rate=CreateNewRate(point,customer,product);
   InsertRate(rate,rate_list);
 
-  point=2;
+  point=4;
   customer=FindCustomerId("cust_id002",customer_list);
   product=FindProduct("prod_name001",product_list);
   rate=CreateNewRate(point,customer,product);
   InsertRate(rate,rate_list);
 
+  point=3;
+  customer=FindCustomerId("cust_id001",customer_list);
+  product=FindProduct("prod_name001",product_list);
+  rate=CreateNewRate(point,customer,product);
+  InsertRate(rate,rate_list);
+
+  point=2;
+  customer=FindCustomerId("cust_id002",customer_list);
+  product=FindProduct("prod_name002",product_list);
+  rate=CreateNewRate(point,customer,product);
+  InsertRate(rate,rate_list);
+
+  //output insert rate: done.
+  cout<<"done.\n\n";
+
+  cout<<"> see rate by product\n";
+  cout<<"prod_name001\n";
+  ViewRateByProduct(FindProduct("prod_name001",product_list),rate_list);
+  cout<<"prod_name002\n";
+  ViewRateByProduct(FindProduct("prod_name002",product_list),rate_list);
+  //output see rate by product: done.
+  cout<<"done.\n\n";
+
+
+  cout<<"> see rate by customer\n";
+  cout<<"cust_id001\n";
+  ViewRateByCustomer(FindCustomerId("cust_id001",customer_list),rate_list);
+  cout<<"cust_id002\n";
+  ViewRateByCustomer(FindCustomerId("cust_id002",customer_list),rate_list);
+  //output see rate by customer: done.
+  cout<<"done.\n\n";
+
+  cout<<"> see customer\n";
+  ViewCustomer(customer_list);
+  //output see customer: done.
+  cout<<"done.\n\n";
+  cout<<"> see product\n";
+  ViewProduct(product_list);
+  //output see product: done.
+  cout<<"done.\n\n";
+  cout<<"> see rate\n";
   ViewAllRate(rate_list);
+  //output see rate: done.
+  cout<<"done.\n\n";
+
+  cout<<"> delete rate\n";
+  rate=FindRate(FindCustomerId("cust_id002",customer_list),
+                FindProduct("prod_name001",product_list),
+                rate_list);
+  DeleteRate(rate,rate_list);
+  rate=FindRate(FindCustomerId("cust_id002",customer_list),
+                FindProduct("prod_name002",product_list),
+                rate_list);
+  DeleteRate(rate,rate_list);
+  rate=FindRate(FindCustomerId("cust_id001",customer_list),
+                FindProduct("prod_name002",product_list),
+                rate_list);
+  DeleteRate(rate,rate_list);
+  cout<<"done.\n\n";
+
+  cout<<"> see rate\n";
+  ViewAllRate(rate_list);
+  cout<<"done.\n\n";
+
 
   return 0;
 }

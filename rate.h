@@ -34,12 +34,13 @@ void InsertRate(RatePointer &rate, RateList &list);   //insert first
 RatePointer DeleteFirstRate(RateList &list);
 RatePointer DeleteLastRate(RateList &list);
 RatePointer DeleteAfterRate(RatePointer &precedent, RateList &list);
-void DeletePointer(RatePointer &rate, RateList &list);    //automatically call delete first/after/last
-RatePointer FindRateByCustomer(CustomerPointer customer, RateList list);
-RatePointer FindRateByProduct(ProductPointer product, RateList list);
-//RatePointer FindRate()
+void DeleteRate(RatePointer &rate, RateList &list);    //automatically call delete first/after/last
+RatePointer FindRate(CustomerPointer customer, ProductPointer product, RateList list);
 void ViewAllRate(RateList list);
 void ViewRateByCustomer(CustomerPointer customer, RateList list);
 void ViewRateByProduct(ProductPointer product, RateList list);
+
+//testing
+void CountRate(RateList list);
 
 #endif //RATING_H_INCLUDED

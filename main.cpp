@@ -14,10 +14,10 @@ int main(){
   //code here
 
   //testing
-  cout<<"\n\nTest Customer \n";
+  /*cout<<"\n\nTest Customer \n";
   TestCustomerList();
   cout<<"\n\nTest Product \n";
-  TestProductList();
+  TestProductList();*/
   cout<<"\n\nTest Rate\n";
   TestRateList();
 

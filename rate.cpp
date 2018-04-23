@@ -21,17 +21,22 @@ void CreateRateList(RateList &list){
 
 void InsertRate(RatePointer &rate, RateList &list){
   if(rate!=NULL){
-    if(FIRST(list)==NULL){
-      FIRST(list)=rate;
-      LAST(list)=rate;
-      NEXT(LAST(list))=FIRST(list);
-      PREVIOUS(FIRST(list))=LAST(list);
+    RatePointer p=FindRate(CUSTOMER(rate),PRODUCT(rate),list);
+    if(p==NULL){
+      if(FIRST(list)==NULL){
+        FIRST(list)=rate;
+        LAST(list)=rate;
+        NEXT(LAST(list))=FIRST(list);
+        PREVIOUS(FIRST(list))=LAST(list);
+      }else{
+        NEXT(rate)=FIRST(list);
+        PREVIOUS(rate)=LAST(list);
+        PREVIOUS(NEXT(rate))=rate;
+        NEXT(PREVIOUS(rate))=rate;
+        FIRST(list)=rate;
+      }
     }else{
-      NEXT(rate)=FIRST(list);
-      PREVIOUS(rate)=LAST(list);
-      PREVIOUS(NEXT(rate))=rate;
-      NEXT(PREVIOUS(rate))=rate;
-      FIRST(list)=rate;
+      INFO(p)=INFO(rate);
     }
   }
 }
@@ -86,7 +91,7 @@ RatePointer DeleteAfterRate(RatePointer &precedent, RateList &list){
   }
 }
 
-void DeletePointer(RatePointer &rate, RateList &list){
+void DeleteRate(RatePointer &rate, RateList &list){
   if(rate!=NULL){
     if(rate==FIRST(list)){
       rate=DeleteFirstRate(list);
@@ -98,58 +103,91 @@ void DeletePointer(RatePointer &rate, RateList &list){
   }
 }
 
-void ViewRateByCustomer(CustomerPointer customer, RateList list){
-  if(FIRST(list)==NULL){
-    cout<<"End of search.";
-  }else{
-    RatePointer p=FIRST(list);
-    while(p!=LAST(list)){
-      if(CUSTOMER(rate)==customer){
-        cout<<INFO(PRODUCT(p)).product_name<<": ";
-        cout<<INFO(p).point<<endl;
-        p = NEXT(p);
-      }
+RatePointer FindRate(CustomerPointer customer, ProductPointer product, RateList list){
+  RatePointer p=FIRST(list);
+  if(p!=NULL){
+    while((p!=LAST(list)) && ((CUSTOMER(p)!=customer) || (PRODUCT(p)!=product))){
+      p=NEXT(p);
     }
-    cout<<INFO(PRODUCT(p)).product_name<<": ";
-    cout<<INFO(p).point;
-  }
-  cout<<endl;
-}
-
-void ViewRateByProduct(ProductPointer product, RateList list){
-  if(FIRST(list)==NULL){
-    cout<<"End of search.";
-  }else{
-    RatePointer p=FIRST(list);
-    while(p!=LAST(list)){
-      if(product(rate)==product){
-        cout<<INFO(PRODUCT(p)).product_name<<": ";
-        cout<<INFO(p).point<<endl;
-        p = NEXT(p);
-      }
+    if((CUSTOMER(p)==customer) && (PRODUCT(p)==product)){
+      return p;
+    }else{
+      return NULL;
     }
-    cout<<INFO(CUSTOMER(p)).customer_name<<": ";
-    cout<<INFO(p).point;
+  }else{
+    return NULL;
   }
-  cout<<endl;
 }
 
 void ViewAllRate(RateList list){
   RatePointer p = FIRST(list);
-  if (FIRST(list) == NULL){
-    cout<<"No one rates at this time.";
+  if (p == NULL){
+    cout<<"No one has rated at this time.";
   }else{
     while(p!=LAST(list)){
       cout<<INFO(PRODUCT(p)).product_name<<": ";
       cout<<INFO(p).point<<" by ";
-      cout<<INFO(CUSTOMER(p)).customer_id<<"-";
-      cout<<INFO(CUSTOMER(p)).customer_name<<endl;
+      cout<<INFO(CUSTOMER(p)).customer_name<<" (";
+      cout<<INFO(CUSTOMER(p)).customer_id<<")"<<endl;
       p = NEXT(p);
     }
     cout<<INFO(PRODUCT(p)).product_name<<": ";
     cout<<INFO(p).point<<" by ";
-    cout<<INFO(CUSTOMER(p)).customer_id<<"-";
-    cout<<INFO(CUSTOMER(p)).customer_name;
+    cout<<INFO(CUSTOMER(p)).customer_name<<" (";
+    cout<<INFO(CUSTOMER(p)).customer_id<<")"<<endl;
   }
-  cout<<endl;
+}
+
+void ViewRateByCustomer(CustomerPointer customer, RateList list){
+  if(FIRST(list)==NULL){
+    cout<<"No one has rated at this time.";
+  }else{
+    RatePointer p=FIRST(list);
+    while(p!=LAST(list)){
+      if(CUSTOMER(p)==customer){
+        cout<<INFO(PRODUCT(p)).product_name<<": ";
+        cout<<INFO(p).point<<endl;
+      }
+      p = NEXT(p);
+    }
+    if(CUSTOMER(p)==customer){
+      cout<<INFO(PRODUCT(p)).product_name<<": ";
+      cout<<INFO(p).point<<endl;
+    }
+  }
+}
+
+void ViewRateByProduct(ProductPointer product, RateList list){
+  if(FIRST(list)==NULL){
+    cout<<"No one has rated at this time.";
+  }else{
+    RatePointer p=FIRST(list);
+    while(p!=LAST(list)){
+      if(PRODUCT(p)==product){
+        cout<<INFO(CUSTOMER(p)).customer_name<<" (";
+        cout<<INFO(CUSTOMER(p)).customer_id<<"): ";
+        cout<<INFO(p).point<<endl;
+      }
+      p = NEXT(p);
+    }
+    if(PRODUCT(p)==product){
+      cout<<INFO(CUSTOMER(p)).customer_name<<" (";
+      cout<<INFO(CUSTOMER(p)).customer_id<<"): ";
+      cout<<INFO(p).point<<endl;
+    }
+  }
+}
+
+void CountRate(RateList list){
+  if(FIRST(list)!=NULL){
+    RatePointer p=FIRST(list);
+    int x=1;
+    while(NEXT(p)!=FIRST(list)){
+      p=NEXT(p);
+      x++;
+    }
+    cout<<"num: "<<x<<endl;
+  }else{
+    cout<<"num: 0"<<endl;
+  }
 }

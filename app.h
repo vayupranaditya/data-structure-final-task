@@ -8,6 +8,9 @@
 #define APP_H_INCLUDED
 
 #include <iostream>
+#include <vector>
+
+using namespace std;
 
 #define FIRST(Element) Element.first
 #define LAST(Element) Element.last
@@ -18,6 +21,13 @@
 typedef struct CustomerElement* CustomerPointer;
 typedef struct ProductElement* ProductPointer;
 
-using namespace std;
+
+vector <string> GetCommandInput();
+void CreateCache(CustomerPointer &customer);
+void HomePage();
+void SignUp();
+void Login();
+void Menu();
+
 
 #endif //APP_H_INCLUDED
