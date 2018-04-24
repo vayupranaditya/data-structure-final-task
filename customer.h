@@ -4,7 +4,7 @@
 #define CUSTOMER_H_INCLUDED
 
 #include <iostream>
-#include "app.h"
+#include "main.h"
 
 using namespace std;
 
@@ -18,6 +18,9 @@ struct CustomerElement{
 };
 
 struct CustomerList{
+  CustomerList(){
+    first=NULL;
+  }
   CustomerPointer first;
 };
 

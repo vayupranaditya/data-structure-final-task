@@ -4,7 +4,9 @@
 #define RATING_H_INCLUDED
 
 #include <iostream>
-#include "app.h"
+#include "main.h"
+#include "customer.h"
+#include "product.h"
 
 #define CUSTOMER(Element) Element->customer
 #define PRODUCT(Element) Element->product
@@ -25,6 +27,10 @@ struct RateElement{
 };
 
 struct RateList{
+  RateList(){
+    first=NULL;
+    last=NULL;
+  }
   RatePointer first,last;
 };
 

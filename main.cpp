@@ -1,9 +1,10 @@
 #include <iostream>
 
-#include "app.h"
+#include "main.h"
 #include "customer.h"
 #include "product.h"
 #include "rate.h"
+#include "app.h"
 
 #include "testing.h"
 
@@ -23,7 +24,15 @@ int main(){
    TestRateList();
    */
 
-  HomePage();
+  CustomerList customer_list;
+  ProductList product_list;
+  RateList rate_list;
+
+  CreateCustomerList(customer_list);
+  CreateProductList(product_list);
+  CreateRateList(rate_list);
+
+  HomePage(customer_list, product_list, rate_list);
 
   return 0;
 }

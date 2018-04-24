@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include "main.h"
 #include "app.h"
 #include "customer.h"
 #include "product.h"
@@ -9,12 +10,20 @@
 
 using namespace std;
 
+
+string StrToLower(string str){
+  for(int i=0; i<str.length(); i++){
+    str[i]=tolower(str[i]);
+  }
+  return str;
+}
+
 vector <string> GetCommandInput(){
   string input;
   vector <string> commands {};
   cout<<"> ";
   getline(cin,input);
-  //transform(input.begin(), input.end(), input.begin(), tolower);
+  input=StrToLower(input);
   unsigned int i,j;
   i=0;
   j=0;
@@ -29,7 +38,9 @@ vector <string> GetCommandInput(){
   return commands;
 }
 
-void HomePage(CustomerList &customer_list, ProductList &product_list, RateList &rate_list){
+void HomePage(CustomerList &customer_list, 
+              ProductList &product_list, 
+              RateList &rate_list){
   cout<<"Rate the Product v1.0\n";
   cout<<"By I Gusti Bagus Vayupranaditya Putraadinatha (1301174029) and\n";
   cout<<"I Gusti Bagus Agung Bayu Pramana Yudha (130117****).\n\n";
@@ -48,16 +59,22 @@ void HomePage(CustomerList &customer_list, ProductList &product_list, RateList &
       }
     }else if(command[0]=="signin"){
       //signin
-      CustomerPointer customer=SignIn();
+      CustomerPointer customer=SignIn(customer_list, product_list, rate_list, NULL);
+      Menu(customer, customer_list, product_list, rate_list);
     }else if(command[0]=="signup"){
       //sign up
+      CustomerPointer customer=SignUp(customer_list, product_list, rate_list);
+      Menu(customer, customer_list, product_list, rate_list);
     }else{
       //reset
+      command.clear();
     }
   }
 }
 
-CustomerPointer SignUp(CustomerList &customer_list){
+CustomerPointer SignUp(CustomerList &customer_list,
+              ProductList &product_list,
+              RateList &rate_list){
   cout<<"Sign Up\n";
   cout<<"Please type your credential below\n";
   cout<<"User ID: ";
@@ -65,42 +82,60 @@ CustomerPointer SignUp(CustomerList &customer_list){
   while(user_id==""){
     getline(cin,user_id);
     if(FindCustomerId(user_id, customer_list)!=NULL){
-      cout<<"User ID has been taken. Please choose a different user ID\n"
+      cout<<"User ID has been taken. Please choose a different user ID\n";
       user_id="";
     }
   }
   cout<<"User name: ";
   getline(cin, user_name);
-  CustomerPointer customer=CreateNewCustomer(user_id, user_name, customer_list);
+  CustomerPointer customer=CreateNewCustomer(user_id, user_name);
   InsertCustomer(customer, customer_list);
 
+  cout<<"Sign up as "<<INFO(customer).customer_name<<" success!\n";
+
   //auto login
-  customer=SignIn(customer, customer_list);
+  customer=SignIn(customer_list, product_list, rate_list, customer);
   return customer;
 }
 
-CustomerPointer SignIn(CustomerPointer customer = NULL, CustomerList customer_list){
+CustomerPointer SignIn(CustomerList customer_list, 
+                      ProductList &product_list, 
+                      RateList &rate_list, 
+                      CustomerPointer customer){
   CustomerPointer user;
-  if(customer!=NULL){
+  if(customer==NULL){
     string user_id="";
     cout<<"Sign In\n";
     cout<<"Please enter your credential below\n";
+    cout<<"Or enter '!cancel' to cancel.\n";
     while(user_id==""){
       cout<<"User ID: ";
       getline(cin, user_id);
-      if(user=FindCustomerId(user_id, customer_list)==NULL){
-        cout<<"User ID not found. Please try again.\n"
+      if(StrToLower(user_id)=="!cancel"){
+        cout<<"\n\n";
+        HomePage(customer_list, product_list, rate_list);
+        break;
+      }
+      if((user=FindCustomerId(user_id, customer_list))==NULL){
+        cout<<"User ID not found. Please try again.\n";
         user_id="";
       }
     }
   }else{
-    user=FindCustomerId(INFO(customer).user_id, customer_list);
+    user=FindCustomerId(INFO(customer).customer_id, customer_list);
   }
+
+  cout<<"Signed in as "<<INFO(customer).customer_name<<"!\n";
   return user;
 }
 
-void Menu(CustomerPointer user, CustomerList &customer_list, ProductList &product_list, RateList &rate_list){
+void Menu(CustomerPointer user, 
+          CustomerList &customer_list, 
+          ProductList &product_list, 
+          RateList &rate_list){
   vector <string> command {};
+  cout<<"Hi, "<<INFO(user).customer_name<<"!\n";
+  command=GetCommandInput();
   if(INFO(user).customer_name=="admin"){
     //admin list
   }else{
@@ -124,6 +159,7 @@ void Menu(CustomerPointer user, CustomerList &customer_list, ProductList &produc
         //update account
       }else{
         //reset
+        command.clear();
       }
     }
   }

@@ -4,7 +4,7 @@
 #define PRODUCT_H_INCLUDED
 
 #include <iostream>
-#include "app.h"
+#include "main.h"
 
 using namespace std;
 
@@ -18,6 +18,9 @@ struct ProductElement{
 };
 
 struct ProductList{
+  ProductList(){
+    first=NULL;
+  }
 	ProductPointer first;
 };
 
