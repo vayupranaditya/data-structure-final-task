@@ -245,12 +245,12 @@ int TestRateList(){
   ViewAllRate(rate_list);
   cout<<"done.\n\n";
 
-  cout<<"view product rate"
-  string product_name="prod_name001";
+  cout<<"view product rate";
+  product_name="prod_name001";
   ViewProductRate(product_list,rate_list);
 
   product_name="prod_name002";
-  ViewRateByProduct(product_list, rate_list);
+  ViewProductRate(product_list, rate_list);
 
 
   return 0;
