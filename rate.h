@@ -13,10 +13,16 @@
 
 typedef struct RateElement* RatePointer;
 
+typedef struct AverageRateElement* AverageRatePointer;
+
 using namespace std;
 
 struct RateInfotype{
   int point;
+};
+
+struct AverageRateInfotype{
+  float average;
 };
 
 struct RateElement{
@@ -24,6 +30,12 @@ struct RateElement{
   RatePointer next,previous;
   CustomerPointer customer;
   ProductPointer product;
+};
+
+struct AverageRateElement{
+  AverageRateInfotype info;
+  ProductPointer product;
+  AverageRatePointer next, previous;
 };
 
 struct RateList{
@@ -34,6 +46,13 @@ struct RateList{
   RatePointer first,last;
 };
 
+struct AverageRateList{
+  AverageRateList(){
+    first=NULL;
+    last=NULL;
+  }
+  AverageRatePointer first, last;
+};
 RatePointer CreateNewRate(int point, CustomerPointer customer, ProductPointer product);
 void CreateRateList(RateList &list);
 void InsertRate(RatePointer &rate, RateList &list);   //insert first

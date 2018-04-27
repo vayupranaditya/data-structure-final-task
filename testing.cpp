@@ -24,7 +24,7 @@ int TestCustomerList(){
   customer_name="cust_name004";
   customer=CreateNewCustomer(customer_id,customer_name);
   InsertCustomer(customer,customer_list);
-  
+
   customer_id="cust_id003";
   customer_name="cust_name003";
   customer=CreateNewCustomer(customer_id,customer_name);
@@ -66,7 +66,7 @@ int TestCustomerList(){
   customer_id="cust_id001";
   customer=FindCustomerId("cust_id004",customer_list);
   UpdateCustomer(customer,customer_id,customer_name,customer_list);
-  
+
   cout<<"UPDATE customer_list SET customer_id='cust_name001' WHERE customer_id='cust_id004';"<<endl;
   ViewCustomer(customer_list);
 
@@ -129,7 +129,7 @@ int TestProductList(){
   cout<<"update 004 > 002"<<endl;
   product=FindProduct("prod_name004",product_list);
   UpdateProduct(product,"prod_name002");
-  
+
   ViewProduct(product_list);
 
   cout<<"update !NULL > 003"<<endl;
@@ -244,6 +244,13 @@ int TestRateList(){
   cout<<"> see rate\n";
   ViewAllRate(rate_list);
   cout<<"done.\n\n";
+
+  cout<<"view product rate"
+  string product_name="prod_name001";
+  ViewProductRate(product_list,rate_list);
+
+  product_name="prod_name002";
+  ViewRateByProduct(product_list, rate_list);
 
 
   return 0;
