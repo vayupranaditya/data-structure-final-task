@@ -213,7 +213,8 @@ void CountRate(RateList list){
   }
 }
 
-/*void ViewTopTenProduct(ProductList product_list, RateList rate_list){
+/*
+void ViewTopTenProduct(ProductList product_list, RateList rate_list){
   ProductPointer pro= FIRST(product_list);
   RatePointer p;
   int size;
@@ -223,3 +224,4 @@ void CountRate(RateList list){
     }
   }
 }
+*/

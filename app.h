@@ -27,6 +27,10 @@ void Menu(CustomerPointer user,
           CustomerList &customer_list, 
           ProductList &product_list, 
           RateList &rate_list);
-
+void UserInputRate(CustomerPointer user, 
+                   ProductList product_list, 
+                   RateList &rate_list);
+void UserDeleteRate(CustomerPointer user,
+                    RateList &rate_list);
 
 #endif //APP_H_INCLUDED

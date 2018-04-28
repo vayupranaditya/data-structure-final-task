@@ -135,32 +135,136 @@ void Menu(CustomerPointer user,
           RateList &rate_list){
   vector <string> command {};
   cout<<"Hi, "<<INFO(user).customer_name<<"!\n";
-  command=GetCommandInput();
   if(INFO(user).customer_name=="admin"){
     //admin list
+    while(command.size()==0){
+      command=GetCommandInput();
+      if(command[0]=="help"){
+        //help
+        cout<<"help\n";
+      }else if(command[0]=="see"){
+        //see
+        if(command.size>1){
+          if(command[1]=="-customers"){
+            //see customers
+          }else if(command[1]=="-products"){
+            //see products
+          }else if(command[1]=="-rates"){
+            //see rates
+            if(command.size()>2){
+              //see rates by
+              if(command[2]=="-customer"){
+                //see rates by customer X
+              }else if(command[2]=="-product"){
+                //see rates by product X
+              }else{
+                //wrong input
+              }
+            }else{
+              //wrong input
+              cout<<"Usage: see -rates filter [-customer | -product]\n";
+              cout<<"Type 'help -see' for more info\n";
+            }
+          }else{
+            //wrong input
+          }
+        }else{
+          cout<<"Usage: see object [-customers | -products | -rates] -filter [-customer | -product]\n";
+          cout<<"Type 'help -see' for more info\n";
+        }
+      }else if(command[0]=="signout"){
+        //sign out
+      }else if(command[0]=="exit"){
+        //exit
+        break;
+      }else{
+        cout<<"Command not found. Type 'help' to see command list.\n";
+      }
+      command.clear()
+    }
   }else{
     //customer list
     while(command.size()==0){
       command=GetCommandInput();
-      if(command[0]=="rate"){
+      if(command[0]=="help"){
+        //help
+        cout<<"help\n";
+      }else if(command[0]=="rate"){
         //input rate
+        cout<<"rate\n";
+        UserInputRate(user,product_list,rate_list);
       }else if(command[0]=="delete"){
         //delete rate
+        cout<<"delete\n";
       }else if(command[0]=="see"){
         //view
+        cout<<"see ";
         if(command.size()==2){
-          if(command[1]=="products"){
+          if(command[1]=="-products"){
             //see products
-          }else if(command[1]=="rates"){
+            cout<<"products\n";
+          }else if(command[1]=="-rates"){
             //see my rates
+            cout<<"rates\n";
+          }else{
+            cout<<"Usage: see object [-products | -rates]\n";
+            cout<<"Type 'help -see' for more info\n";
           }
+        }else{
+          cout<<"Usage: see object [-products | -rates]\n";
+          cout<<"Type 'help -see' for more info\n";
         }
       }else if(command[0]=="update"){
         //update account
+        cout<<"update\n";
+      }else if(command[0]=="exit"){
+        cout<<"exit\n";
+        break;
       }else{
-        //reset
-        command.clear();
+        cout<<"Command not found. Type 'help' to see command list.\n";
       }
+      command.clear();
     }
   }
+}
+
+void UserInputRate(CustomerPointer user, 
+                   ProductList product_list, 
+                   RateList &rate_list){
+  if(!IsProductListEmpty(product_list)){
+    string product_name;
+    int point;
+    ProductPointer product;
+    RatePointer rate;
+    ViewProduct(product_list);
+    do{
+      cout<<"Enter your desired product name (or type '!cancel' to cancel): ";
+      getline(cin,product_name);
+      if(product_name=="!cancel"){
+        cout<<"Rate canceled.\n";
+        break;
+      }
+      product=FindProduct(product_name, product_list);
+      if(product==NULL){
+        cout<<"Product not found. Please try again.\n";
+      }
+    }while(product==NULL);
+    if(product_name!="!cancel"){
+      do{
+        cout<<"Score for "<<product_name<<"(1-5): ";
+        cin>>point;
+        if(!((point>=1) && (point<=5))){
+          cout<<"Score range is 1-5. Please try again.\n";
+        }
+      }while((point>=1) && (point<=5));
+      rate=CreateNewRate(point,user,product);
+      InsertRate(rate,rate_list);
+    }
+  }else{
+    cout<<"There is no product at this time.\n";
+  }
+}
+
+void UserDeleteRate(CustomerPointer user,
+                    RateList &rate_list){
 }
