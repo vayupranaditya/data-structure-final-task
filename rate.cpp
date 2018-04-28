@@ -193,6 +193,7 @@ void ViewProductRate(ProductList product_list, RateList rate_list){
         lots_of_data= lots_of_data+1;
         amount_of_data=amount_of_data+INFO(rate).point;
       }
+      product=NEXT(product);
     }
     average=amount_of_data/lots_of_data;
     cout<<average;
@@ -210,16 +211,5 @@ void CountRate(RateList list){
     cout<<"num: "<<x<<endl;
   }else{
     cout<<"num: 0"<<endl;
-  }
-}
-
-/*void ViewTopTenProduct(ProductList product_list, RateList rate_list){
-  ProductPointer pro= FIRST(product_list);
-  RatePointer p;
-  int size;
-  if (size < 10){
-    for(int i=1; i<10; i++){
-      if
-    }
   }
 }
