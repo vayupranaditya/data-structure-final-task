@@ -213,3 +213,19 @@ void CountRate(RateList list){
     cout<<"num: 0"<<endl;
   }
 }
+<<<<<<< HEAD
+=======
+
+/*
+void ViewTopTenProduct(ProductList product_list, RateList rate_list){
+  ProductPointer pro= FIRST(product_list);
+  RatePointer p;
+  int size;
+  if (size < 10){
+    for(int i=1; i<10; i++){
+      if
+    }
+  }
+}
+*/
+>>>>>>> d79550f01e372c2d17dfe7f5f0d6b16f41b79018
