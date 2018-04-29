@@ -19,7 +19,7 @@ ProductPointer FindProduct(string product_name, ProductList list){
     while((StrToLower(INFO(p).product_name) != StrToLower(product_name)) && (NEXT(p) != NULL)){
       p = NEXT(p);
     }
-    if(StrToLower(INFO(p).product_name) != StrToLower(product_name)){
+    if(StrToLower(INFO(p).product_name) == StrToLower(product_name)){
       return p;
     }else{
       return NULL;
@@ -113,11 +113,12 @@ void UpdateProduct(ProductPointer &product, string product_name){
 
 void ViewProduct(ProductList list){
   if(FIRST(list) == NULL){
-    cout<<"Empty";
+    cout<<"There is no product at this time.\n";
   }else{
     ProductPointer p = FIRST(list);
+    cout<<"Products:\n";
     while (p != NULL){
-    cout<< INFO(p).product_name<<endl;
+    cout<<"- "<<INFO(p).product_name<<endl;
     p=NEXT(p);
     }
   }

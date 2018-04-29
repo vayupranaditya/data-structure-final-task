@@ -143,7 +143,9 @@ void ViewCustomer(CustomerList list){
   if(FIRST(list)!=NULL){
     CustomerPointer p=FIRST(list);
     while(p!=NULL){
-      cout<<INFO(p).customer_id<<": "<<INFO(p).customer_name<<endl;
+      if(INFO(p).customer_id!="admin"){
+        cout<<"- "<<INFO(p).customer_id<<": "<<INFO(p).customer_name<<endl;
+      }
       p=NEXT(p);
     }
   }else{

@@ -32,6 +32,20 @@ int main(){
   CreateProductList(product_list);
   CreateRateList(rate_list);
 
+  CustomerPointer user=CreateNewCustomer("admin","Administrator");
+  InsertCustomer(user,customer_list);
+  user=CreateNewCustomer("cust_001","Customer 001");
+  InsertCustomer(user,customer_list);
+  user=CreateNewCustomer("cust_002","Customer 002");
+  InsertCustomer(user,customer_list);
+
+  ProductPointer product=CreateNewProduct("Microsoft Windows 10");
+  InsertProduct(product,product_list);
+  product=CreateNewProduct("Ubuntu 18.04 Bionic Beaver");
+  InsertProduct(product,product_list);
+  product=CreateNewProduct("macOS 10.13 High Sierra");
+  InsertProduct(product,product_list);
+
   HomePage(customer_list, product_list, rate_list);
 
   return 0;
