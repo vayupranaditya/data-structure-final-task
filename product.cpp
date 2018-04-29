@@ -52,7 +52,7 @@ ProductPointer DeleteFirstProduct(ProductList &list){
       FIRST(list) = NULL;
     }else{
       FIRST(list) = NEXT(p);
-      NEXT(p);
+      NEXT(p)=NULL;
     }
     return p;
   }else{
