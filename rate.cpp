@@ -224,6 +224,8 @@ void ViewProductRate(ProductList product_list, RateList rate_list){
   ProductPointer product=FIRST(product_list);
   RatePointer rate;
   while(product!=NULL){
+    amount_of_data=0;
+    lots_of_data=0;
     if(FIRST(rate_list)!=NULL){
       rate=FIRST(rate_list);
       while(rate!=LAST(rate_list)){
@@ -237,7 +239,11 @@ void ViewProductRate(ProductList product_list, RateList rate_list){
         amount_of_data=amount_of_data+INFO(rate).point;
         lots_of_data++;
       }
-      average=float(amount_of_data)/lots_of_data;
+      if((amount_of_data==0)&&(lots_of_data==0)){
+        average=0;
+      }else{
+        average=float(amount_of_data)/lots_of_data;
+      }
     }else{
       average=0;
     }

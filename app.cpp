@@ -247,6 +247,8 @@ void Menu(CustomerPointer user,
           cout<<"  -rates: see all rates.\n";
           cout<<"signout\n";
           cout<<"  sign out of your account.\n";
+          cout<<"update\n";
+          cout<<"  update a product data.\n";
         }else{
           if((command[0]=="help")&&(command[1]=="-see")){
             cout<<"see -rates filter [-customer | -product]\n";
@@ -338,20 +340,41 @@ void Menu(CustomerPointer user,
       command=GetCommandInput();
       if(command[0]=="help"){
         //help
-        cout<<"clear\n";
-        cout<<"delete\n";
-        cout<<"exit\n";
-        cout<<"help\n";
-        cout<<"rate\n";
-        cout<<"see\n";
-        cout<<"signout\n";
-        cout<<"udate\n";
+        if(command.size()==1){
+          cout<<"clear\n";
+          cout<<"  clear the screen.\n";
+          cout<<"delete\n";
+          cout<<"  delete your rate.\n";
+          cout<<"exit\n";
+          cout<<"  exit of the program.\n";
+          cout<<"help\n";
+          cout<<"  see command list and description.\n";
+          cout<<"rate\n";
+          cout<<"  rate a product.\n";
+          cout<<"see\n";
+          cout<<"signout\n";
+          cout<<"  sign out of your account.\n";
+          cout<<"udate\n";
+          cout<<"  update your account.\n";
+        }else{
+          if(command[0]=="help"){
+            if(command[1]=="-see"){
+              cout<<"see object [-products | -rates]\n";
+              cout<<"  -products: see all your rated products.\n";
+              cout<<"  -rates: see all your rates.\n";
+            }else{
+              cout<<"Command not found. Type 'help' to see command list.\n";
+            }
+          }else{
+            cout<<"Command not found. Type 'help' to see command list.\n";
+          }
+        }
       }else if(command[0]=="rate"){
         //input rate
         UserInputRate(user,product_list,rate_list);
       }else if(command[0]=="delete"){
         //delete rate
-        cout<<"delete\n";
+        UserDeleteRate(user,product_list,rate_list);
       }else if(command[0]=="see"){
         //view
         if(command.size()==2){
@@ -371,7 +394,7 @@ void Menu(CustomerPointer user,
         }
       }else if(command[0]=="update"){
         //update account
-        cout<<"update\n";
+        UserUpdate(user,customer_list);
       }else if(command[0]=="clear"){
         ClearScreen();
       }else if(command[0]=="signout"){
@@ -598,12 +621,12 @@ void UserInputRate(CustomerPointer user,
     }while(product==NULL);
     if(product_name!="!cancel"){
       do{
-        cout<<"Score for "<<product_name<<"(1-5): ";
+        cout<<"Score for "<<product_name<<"(0-5): ";
         getline(cin,point_string);
-        if((point_string.length()!=1) || (point_string[0]<49) || (point_string[0]>53)){
-          cout<<"Score range is 1-5. Please try again.\n";
+        if((point_string.length()!=1) || (point_string[0]<48) || (point_string[0]>53)){
+          cout<<"Score range is 0-5. Please try again.\n";
         }
-      }while((point_string.length()!=1) || (point_string[0]<49) || (point_string[0]>53));
+      }while((point_string.length()!=1) || (point_string[0]<48) || (point_string[0]>53));
       point=stoi(point_string);
       rate=CreateNewRate(point,user,product);
       InsertRate(rate,rate_list);
@@ -614,3 +637,60 @@ void UserInputRate(CustomerPointer user,
   }
 }
 
+void UserDeleteRate(CustomerPointer user,
+                    ProductList product_list,
+                    RateList &rate_list){
+  string product_name;
+  ProductPointer product;
+  RatePointer rate;
+  ViewRateByCustomer(user,rate_list);
+  do{
+      cout<<"Enter product name (or type '!cancel' to cancel): ";
+      getline(cin,product_name);
+      if(product_name=="!cancel"){
+        cout<<"Delete rate canceled.\n";
+        break;
+      }
+      product=FindProduct(product_name,product_list);
+      if(product==NULL){
+        cout<<"Product not found. Please try again.\n";
+      }
+      rate=FindRate(user,product,rate_list);
+      if((product!=NULL) && (rate==NULL)){
+        cout<<"You did not rate "<<product_name<<". Please try again.\n";
+      }
+    }while((product==NULL) || (rate==NULL));
+    if(product_name!="!cancel"){
+      DeleteRate(rate,rate_list);
+      cout<<"Delete rate of "<<INFO(PRODUCT(rate)).product_name<<" success!\n";
+    }
+}
+
+void UserUpdate(CustomerPointer &customer,
+                CustomerList &customer_list){
+  string customer_id,customer_name;
+  CustomerPointer check_customer;
+  cout<<"Your customer ID: "<<INFO(customer).customer_id<<endl;
+  cout<<"Your customer name: "<<INFO(customer).customer_name<<endl;
+  do{
+    cout<<"Enter new ID (type your existing id to keep it or type '!cancel' to cancel): ";
+    getline(cin,customer_id);
+    if(customer_id=="!cancel"){
+      cout<<"Update account canceled.\n";
+      break;
+    }
+    check_customer=FindCustomerId(customer_id,customer_list);
+    if((check_customer!=customer) && (check_customer!=NULL)){
+      cout<<"User ID has been used. Please try another one.\n";
+    }
+  }while((check_customer!=customer) && (check_customer!=NULL));
+  if(customer_id!="!cancel"){
+    cout<<"Enter new name (type your existing name to keep it or type '!cancel' to cancel): ";
+    getline(cin,customer_name);
+    if(customer_name=="!cancel"){
+      cout<<"Update account canceled.\n";
+    }else{
+      UpdateCustomer(customer,customer_id,customer_name,customer_list);
+    }
+  }
+}

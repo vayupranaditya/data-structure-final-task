@@ -45,6 +45,23 @@ int main(){
   InsertProduct(product,product_list);
   product=CreateNewProduct("macOS 10.13 High Sierra");
   InsertProduct(product,product_list);
+  product=CreateNewProduct("product 4");
+  InsertProduct(product,product_list);
+  product=CreateNewProduct("product 5");
+  InsertProduct(product,product_list);
+  product=CreateNewProduct("product 6");
+  InsertProduct(product,product_list);
+  product=CreateNewProduct("product 7");
+  InsertProduct(product,product_list);
+  product=CreateNewProduct("product 8");
+  InsertProduct(product,product_list);
+  product=CreateNewProduct("product 9");
+  InsertProduct(product,product_list);
+  product=CreateNewProduct("product 10");
+  InsertProduct(product,product_list);
+  product=CreateNewProduct("product 11");
+  InsertProduct(product,product_list);
+  
 
   HomePage(customer_list, product_list, rate_list);
 
