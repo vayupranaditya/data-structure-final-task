@@ -4,6 +4,9 @@
 ProductPointer CreateNewProduct(string product_name){
   ProductPointer p=new ProductElement;
   INFO(p).product_name = product_name;
+  INFO(p).average_product=0;
+  INFO(p).number=0;
+  INFO(p).point=0;
   NEXT(p) = NULL;
   return p;
 }
@@ -16,10 +19,10 @@ ProductPointer FindProduct(string product_name, ProductList list){
   if(FIRST(list)!=NULL){
     ProductPointer p;
     p = FIRST(list);
-    while((StrToLower(INFO(p).product_name) != StrToLower(product_name)) && (NEXT(p) != NULL)){
+    while((INFO(p).product_name != product_name) && (NEXT(p) != NULL)){
       p = NEXT(p);
     }
-    if(StrToLower(INFO(p).product_name) == StrToLower(product_name)){
+    if(INFO(p).product_name == product_name){
       return p;
     }else{
       return NULL;
@@ -113,17 +116,26 @@ void UpdateProduct(ProductPointer &product, string product_name){
 
 void ViewProduct(ProductList list){
   if(FIRST(list) == NULL){
-    cout<<"There is no product at this time.\n";
+    cout<<"Empty";
   }else{
     ProductPointer p = FIRST(list);
-    cout<<"Products:\n";
     while (p != NULL){
-    cout<<"- "<<INFO(p).product_name<<endl;
+    cout<< INFO(p).product_name<<endl;
     p=NEXT(p);
     }
   }
 }
 
-bool IsProductListEmpty(ProductList product_list){
-  return FIRST(product_list)==NULL;
+int CountProduct(ProductList list){
+  if(FIRST(list)==NULL){
+    return NULL;
+  }else{
+    int i=0;
+    ProductPointer p=FIRST(list);
+    while(p!=NULL){
+      i++;
+      p=NEXT(p);
+    }
+    return i;
+  }
 }
