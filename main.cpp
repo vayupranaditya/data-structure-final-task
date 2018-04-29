@@ -14,16 +14,6 @@ int main(){
 
   //code here
 
-  //testing
-  /*
-   cout<<"\n\nTest Customer \n";
-   TestCustomerList();
-   cout<<"\n\nTest Product \n";
-   TestProductList();
-   cout<<"\n\nTest Rate\n";
-   TestRateList();
-   */
-
   CustomerList customer_list;
   ProductList product_list;
   RateList rate_list;
@@ -39,13 +29,7 @@ int main(){
   user=CreateNewCustomer("cust_002","Customer 002");
   InsertCustomer(user,customer_list);
 
-  ProductPointer product=CreateNewProduct("Microsoft Windows 10");
-  InsertProduct(product,product_list);
-  product=CreateNewProduct("Ubuntu 18.04 Bionic Beaver");
-  InsertProduct(product,product_list);
-  product=CreateNewProduct("macOS 10.13 High Sierra");
-  InsertProduct(product,product_list);
-  product=CreateNewProduct("product 4");
+  ProductPointer product=CreateNewProduct("product 4");
   InsertProduct(product,product_list);
   product=CreateNewProduct("product 5");
   InsertProduct(product,product_list);
@@ -60,6 +44,12 @@ int main(){
   product=CreateNewProduct("product 10");
   InsertProduct(product,product_list);
   product=CreateNewProduct("product 11");
+  InsertProduct(product,product_list);
+  product=CreateNewProduct("Microsoft Windows 10");
+  InsertProduct(product,product_list);
+  product=CreateNewProduct("Ubuntu 18.04 Bionic Beaver");
+  InsertProduct(product,product_list);
+  product=CreateNewProduct("macOS 10.13 High Sierra");
   InsertProduct(product,product_list);
   
 

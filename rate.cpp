@@ -2,7 +2,6 @@
 #include "customer.h"
 #include "product.h"
 #include "rate.h"
-#include "topten.h"
 
 using namespace std;
 
@@ -38,7 +37,7 @@ void InsertRate(RatePointer &rate, RateList &list){
       }
       INFO(PRODUCT(rate)).point=INFO(PRODUCT(rate)).point+INFO(rate).point;
       INFO(PRODUCT(rate)).number++;
-      INFO(PRODUCT(rate)).average_product=INFO(PRODUCT(rate)).point/INFO(PRODUCT(rate)).number;
+      INFO(PRODUCT(rate)).average_product=(float)INFO(PRODUCT(rate)).point/INFO(PRODUCT(rate)).number;
     }else{
       INFO(p)=INFO(rate);
       INFO(PRODUCT(rate)).point=INFO(PRODUCT(rate)).point+INFO(rate).point;
