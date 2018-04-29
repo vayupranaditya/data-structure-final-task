@@ -110,12 +110,29 @@ void HomePage(CustomerList &customer_list,
       ClearScreen();
     }else if(command[0]=="help"){
       //help
-      cout<<"clear\n";
-      cout<<"exit\n";
-      cout<<"help\n";
-      cout<<"see\n";
-      cout<<"signin\n";
-      cout<<"signup\n";
+      if(command.size()==1){
+        cout<<"clear\n";  
+        cout<<"  clear the screen.\n";
+        cout<<"exit\n";
+        cout<<"  exit of the program.\n";
+        cout<<"help\n";
+        cout<<"  see command list and description.\n";
+        cout<<"see object [-all | -top]\n";
+        cout<<"  -all: see all products.\n";
+        cout<<"  -top: see maximum 10 products with highest rate.\n";
+        cout<<"signin\n";
+        cout<<"  sign into an account.\n";
+        cout<<"signup\n";
+        cout<<"  sign up an account.\n";
+      }else{
+        if(command[1]=="-see"){
+          cout<<"see object [-all | -top]\n";
+          cout<<"  -all: see all products.\n";
+          cout<<"  -top: see maximum 10 products with highest rate.\n";
+        }else{
+          cout<<"Command not found. Type 'help' to see command list.\n";
+        }
+      }
     }else if(command[0]=="exit"){
       //exit
       cout<<"See you\n";
@@ -259,10 +276,10 @@ void Menu(CustomerPointer user,
         if(command.size()>1){
           if(command[1]=="-customer"){
             //delete customer
-            AdminDeleteCustomer(customer_list);
+            AdminDeleteCustomer(customer_list,rate_list);
           }else if(command[1]=="-product"){
             //delete product
-            AdminDeleteProduct(product_list);
+            AdminDeleteProduct(product_list,rate_list);
           }else{
             //wrong input
             cout<<"Usage: delete object [-customer | -product]\n";
@@ -369,7 +386,8 @@ void AdminAddProduct(ProductList &product_list){
   }
 }
 
-void AdminDeleteCustomer(CustomerList &customer_list){
+void AdminDeleteCustomer(CustomerList &customer_list,
+                         RateList &rate_list){
   string customer_id;
   CustomerPointer customer;
   ViewCustomer(customer_list);
@@ -387,11 +405,13 @@ void AdminDeleteCustomer(CustomerList &customer_list){
   }while(customer==NULL);
   if(customer_id!="!cancel"){
     DeleteCustomer(customer,customer_list);
+    DeleteRateByCustomer(customer,rate_list);
     cout<<INFO(customer).customer_name<<" ("<<INFO(customer).customer_id<<") has been deleted.\n";
   }
 }
 
-void AdminDeleteProduct(ProductList &product_list){
+void AdminDeleteProduct(ProductList &product_list,
+                        RateList &rate_list){
   string product_name;
   ProductPointer product;
   ViewProduct(product_list);
@@ -409,6 +429,7 @@ void AdminDeleteProduct(ProductList &product_list){
   }while(product==NULL);
   if(product_name!="!cancel"){
     DeleteProduct(product,product_list);
+    DeleteRateByProduct(product,rate_list);
     cout<<INFO(product).product_name<<" has been deleted.\n";
   }
 }

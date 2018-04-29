@@ -29,8 +29,10 @@ void Menu(CustomerPointer user,
           ProductList &product_list, 
           RateList &rate_list);
 void AdminAddProduct(ProductList &product_list);
-void AdminDeleteCustomer(CustomerList &customer_list);
-void AdminDeleteProduct(ProductList &product_list);
+void AdminDeleteCustomer(CustomerList &customer_list,
+                         RateList &rate_list);
+void AdminDeleteProduct(ProductList &product_list,
+                        RateList &rate_list);
 void UserInputRate(CustomerPointer user, 
                    ProductList product_list, 
                    RateList &rate_list);

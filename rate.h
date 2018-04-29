@@ -41,6 +41,8 @@ RatePointer DeleteFirstRate(RateList &list);
 RatePointer DeleteLastRate(RateList &list);
 RatePointer DeleteAfterRate(RatePointer &precedent, RateList &list);
 void DeleteRate(RatePointer &rate, RateList &list);    //automatically call delete first/after/last
+void DeleteRateByCustomer(CustomerPointer customer, RateList &rate_list); 
+void DeleteRateByProduct(ProductPointer product, RateList &rate_listt);
 RatePointer FindRate(CustomerPointer customer, ProductPointer product, RateList list);
 void ViewAllRate(RateList list);
 void ViewRateByCustomer(CustomerPointer customer, RateList list);

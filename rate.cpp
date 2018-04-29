@@ -103,6 +103,36 @@ void DeleteRate(RatePointer &rate, RateList &list){
   }
 }
 
+void DeleteRateByCustomer(CustomerPointer customer, RateList &rate_list){
+  if((customer!=NULL) && (FIRST(rate_list)!=NULL)){
+    RatePointer rate=FIRST(rate_list);
+    while(NEXT(rate)!=FIRST(rate_list)){
+      if(CUSTOMER(rate)==customer){
+        DeleteRate(rate,rate_list);
+      }
+      rate=NEXT(rate);
+    }
+    if(CUSTOMER(rate)==customer){
+      DeleteRate(rate,rate_list);
+    }
+  }
+}
+
+void DeleteRateByProduct(ProductPointer product, RateList &rate_list){
+  if((product!=NULL) && (FIRST(rate_list)!=NULL)){
+    RatePointer rate=FIRST(rate_list);
+    while(NEXT(rate)!=FIRST(rate_list)){
+      if(PRODUCT(rate)==product){
+        DeleteRate(rate,rate_list);
+      }
+      rate=NEXT(rate);
+    }
+    if(PRODUCT(rate)==product){
+      DeleteRate(rate,rate_list);
+    }
+  }
+}
+
 RatePointer FindRate(CustomerPointer customer, ProductPointer product, RateList list){
   RatePointer p=FIRST(list);
   if(p!=NULL){
