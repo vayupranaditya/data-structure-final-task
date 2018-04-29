@@ -28,11 +28,17 @@ void Menu(CustomerPointer user,
           CustomerList &customer_list, 
           ProductList &product_list, 
           RateList &rate_list);
+void TopTenProduct(ProductList product_list);
 void AdminAddProduct(ProductList &product_list);
 void AdminDeleteCustomer(CustomerList &customer_list,
                          RateList &rate_list);
 void AdminDeleteProduct(ProductList &product_list,
                         RateList &rate_list);
+void AdminSeeRateByCustomer(CustomerList customer_list,
+                            RateList rate_list);
+void AdminSeeRateByProduct(ProductList product_list,
+                           RateList rate_list);
+void AdminUpdateProduct(ProductList product_list);
 void UserInputRate(CustomerPointer user, 
                    ProductList product_list, 
                    RateList &rate_list);

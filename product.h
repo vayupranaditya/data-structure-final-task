@@ -36,6 +36,7 @@ ProductPointer DeleteAfterProduct(ProductPointer &precedent, ProductList &list);
 void DeleteProduct(ProductPointer &product, ProductList &list);   //automatically call delete first/after/last
 void UpdateProduct(ProductPointer &product, string product_name);
 void ViewProduct(ProductList list);
+bool IsProductListEmpty(ProductList product_list);
 int CountProduct(ProductList list);
 
 #endif //PRODUCT_H_INCLUDED

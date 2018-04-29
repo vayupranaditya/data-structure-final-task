@@ -70,7 +70,7 @@ void HomePage(CustomerList &customer_list,
               RateList &rate_list){
   cout<<"Rate the Product v1.0\n";
   cout<<"By I Gusti Bagus Vayupranaditya Putraadinatha (1301174029) and\n";
-  cout<<"I Gusti Bagus Agung Bayu Pramana Yudha (130117****).\n\n";
+  cout<<"I Gusti Bagus Agung Bayu Pramana Yudha (1301174144).\n\n";
   cout<<"Type 'help' to see command list.\n\n";
   vector <string> command {};
   while(command.size() == 0){
@@ -80,8 +80,10 @@ void HomePage(CustomerList &customer_list,
       if(command.size()>1){
         if(command[1]=="-all"){
           //see all
+          ViewProductRate(product_list,rate_list);
         }else if(command[1]=="-top"){
           //see top
+          TopTenProduct(product_list);
         }else{
           cout<<"Usage: see filter [-all | -top]\n";
           cout<<"Type 'help -see' for more info\n";
@@ -227,13 +229,33 @@ void Menu(CustomerPointer user,
       command=GetCommandInput();
       if(command[0]=="help"){
         //help
-        cout<<"add\n";
-        cout<<"clear\n";
-        cout<<"delete\n";
-        cout<<"exit\n";
-        cout<<"help\n";
-        cout<<"see\n";
-        cout<<"signout\n";
+        if(command.size()==1){
+          cout<<"add\n";
+          cout<<"  add a product.\n";
+          cout<<"clear\n";
+          cout<<"  clear the screen.\n";
+          cout<<"delete object [-customer | -product]\n";
+          cout<<"  -customer: delete a customer.\n";
+          cout<<"  -product: delete a product.\n";
+          cout<<"exit\n";
+          cout<<"  exit of the program.\n";
+          cout<<"help\n";
+          cout<<"  see command list and description.\n";
+          cout<<"see object [-customer | -products | -rates]\n";
+          cout<<"  -customer: see all customers.\n";
+          cout<<"  -products: see all products.\n";
+          cout<<"  -rates: see all rates.\n";
+          cout<<"signout\n";
+          cout<<"  sign out of your account.\n";
+        }else{
+          if((command[0]=="help")&&(command[1]=="-see")){
+            cout<<"see -rates filter [-customer | -product]\n";
+            cout<<"  -customer: see all rates made with a customer.\n";
+            cout<<"  -product: see all rates to a product.\n";
+          }else{
+            cout<<"Command not found. Type 'help' to see command list.\n";
+          }
+        }
       }else if(command[0]=="see"){
         //see
         if(command.size()>1){
@@ -249,8 +271,10 @@ void Menu(CustomerPointer user,
               //see rates by
               if(command[2]=="-customer"){
                 //see rates by customer X
+                AdminSeeRateByCustomer(customer_list,rate_list);
               }else if(command[2]=="-product"){
                 //see rates by product X
+                AdminSeeRateByProduct(product_list,rate_list);
               }else{
                 //wrong input
                 cout<<"Usage: see -rates filter [-customer | -product]\n";
@@ -292,6 +316,9 @@ void Menu(CustomerPointer user,
         }
       }else if(command[0]=="clear"){
         ClearScreen();
+      }else if(command[0]=="update"){
+        //update product
+        AdminUpdateProduct(product_list);
       }else if(command[0]=="signout"){
         //sign out
         HomePage(customer_list,product_list,rate_list);
@@ -364,6 +391,40 @@ void Menu(CustomerPointer user,
   }
 }
 
+void TopTenProduct(ProductList product_list){
+  if(FIRST(product_list)!=NULL){
+    ProductPointer product,max;
+    int nums=CountProduct(product_list);
+    if(nums>10){
+      for(int i=1;i<=10;i++){
+        product=FIRST(product_list);
+        max=product;
+        while(product!=NULL){
+          if(INFO(product).average_product>INFO(max).average_product){
+            max=product;
+          }
+          product=NEXT(product);
+        }
+        DeleteProduct(max,product_list);
+        cout<<INFO(max).product_name<<": "<<INFO(max).average_product<<endl;
+      }
+    }else{
+      for(int i=1;i<=nums;i++){
+        product=FIRST(product_list);
+        max=product;
+        while(product!=NULL){
+          if(INFO(product).average_product>INFO(max).average_product){
+            max=product;
+          }
+          product=NEXT(product);
+        }
+        DeleteProduct(max,product_list);
+        cout<<INFO(max).product_name<<": "<<INFO(max).average_product<<endl;
+      }
+    }
+  }
+}
+
 void AdminAddProduct(ProductList &product_list){
   string product_name;
   ProductPointer product;
@@ -405,6 +466,7 @@ void AdminDeleteCustomer(CustomerList &customer_list,
   }while(customer==NULL);
   if(customer_id!="!cancel"){
     DeleteCustomer(customer,customer_list);
+    cout<<"auu\n";
     DeleteRateByCustomer(customer,rate_list);
     cout<<INFO(customer).customer_name<<" ("<<INFO(customer).customer_id<<") has been deleted.\n";
   }
@@ -431,6 +493,85 @@ void AdminDeleteProduct(ProductList &product_list,
     DeleteProduct(product,product_list);
     DeleteRateByProduct(product,rate_list);
     cout<<INFO(product).product_name<<" has been deleted.\n";
+  }
+}
+
+void AdminSeeRateByCustomer(CustomerList customer_list,
+                            RateList rate_list){
+  string customer_id;
+  CustomerPointer customer;
+  ViewCustomer(customer_list);
+  do{
+    cout<<"Enter customer ID (or type '!cancel' to cancel): ";
+    getline(cin,customer_id);
+    if(customer_id=="!cancel"){
+      cout<<"See rate by customer canceled.\n";
+      break;
+    }
+    customer=FindCustomerId(customer_id,customer_list);
+    if(customer==NULL){
+      cout<<"Customer ID not found.\n";
+    }
+  }while(customer==NULL);
+  if(customer_id!="!cancel"){
+    ViewRateByCustomer(customer,rate_list);
+  }
+}
+
+void AdminSeeRateByProduct(ProductList product_list,
+                           RateList rate_list){
+  string product_name;
+  ProductPointer product;
+  ViewProduct(product_list);
+  do{
+    cout<<"Enter product name (or type '!cancel' to cancel): ";
+    getline(cin,product_name);
+    if(product_name=="!cancel"){
+      cout<<"See rate by product canceled.\n";
+      break;
+    }
+    product=FindProduct(product_name,product_list);
+    if(product==NULL){
+      cout<<"Product name not found.\n";
+    }
+  }while(product==NULL);
+  if(product_name!="!cancel"){
+    ViewRateByProduct(product,rate_list);
+  }
+}
+
+void AdminUpdateProduct(ProductList product_list){
+  string product_name,new_product_name;
+  ProductPointer product,new_product;
+  ViewProduct(product_list);
+  do{
+    cout<<"Enter product name (or type '!cancel' to cancel): ";
+    getline(cin,product_name);
+    if(product_name=="!cancel"){
+      cout<<"Update product canceled.\n";
+      break;
+    }
+    product=FindProduct(product_name,product_list);
+    if(product==NULL){
+      cout<<"Product name not found.\n";
+    }
+  }while(product==NULL);
+  if(product_name!="!cancel"){
+    do{
+      cout<<"Enter new product name (or type '!cancel' to cancel): ";
+      getline(cin,new_product_name);
+      if(new_product_name=="!cancel"){
+        cout<<"Update product canceled.\n";
+        break;
+      }
+      new_product=FindProduct(new_product_name,product_list);
+      if(new_product!=NULL){
+        cout<<"Product name has been used. Please try again with different one.\n";
+      }
+    }while(new_product!=NULL);
+  }
+  if((product_name!="!cancel")&&(new_product_name!="!cancel")){
+    UpdateProduct(product,new_product_name);
   }
 }
 

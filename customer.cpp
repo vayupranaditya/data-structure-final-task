@@ -142,13 +142,14 @@ void UpdateCustomer(CustomerPointer &customer, string customer_id, string custom
 void ViewCustomer(CustomerList list){
   if(FIRST(list)!=NULL){
     CustomerPointer p=FIRST(list);
+    cout<<" Customer ID | Customer Name\n";
     while(p!=NULL){
       if(INFO(p).customer_id!="admin"){
-        cout<<"- "<<INFO(p).customer_id<<": "<<INFO(p).customer_name<<endl;
+        cout<<"- "<<INFO(p).customer_id<<" | "<<INFO(p).customer_name<<endl;
       }
       p=NEXT(p);
     }
   }else{
-    cout<<"!empty"<<endl;
+    cout<<"There is no customer at this time."<<endl;
   }
 }

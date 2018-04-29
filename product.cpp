@@ -19,10 +19,10 @@ ProductPointer FindProduct(string product_name, ProductList list){
   if(FIRST(list)!=NULL){
     ProductPointer p;
     p = FIRST(list);
-    while((INFO(p).product_name != product_name) && (NEXT(p) != NULL)){
+    while((StrToLower(INFO(p).product_name) != StrToLower(product_name)) && (NEXT(p) != NULL)){
       p = NEXT(p);
     }
-    if(INFO(p).product_name == product_name){
+    if(StrToLower(INFO(p).product_name) == StrToLower(product_name)){
       return p;
     }else{
       return NULL;
@@ -126,9 +126,13 @@ void ViewProduct(ProductList list){
   }
 }
 
+bool IsProductListEmpty(ProductList product_list){
+  return FIRST(product_list)==NULL;
+}
+
 int CountProduct(ProductList list){
   if(FIRST(list)==NULL){
-    return NULL;
+    return 0;
   }else{
     int i=0;
     ProductPointer p=FIRST(list);
